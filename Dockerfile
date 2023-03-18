@@ -10,7 +10,8 @@ RUN echo "${DS_VERSION}-fc${OS_VERSION} @ $TARGETPLATFORM"
 LABEL description="389 Directory Server. The enterprise-class Open Source LDAP server for Linux."
 LABEL maintainer="Thorsten Ludewig <t.ludewig@gmail.com>"
 LABEL org.opencontainers.image.authors="Thorsten Ludewig <t.ludewig@gmail.com>"
-LABEL org.opencontainers.image.source = "https://github.com/thorsten-l/389ds-fedora"
+LABEL org.opencontainers.image.source="https://github.com/thorsten-l/389ds-fedora"
+LABEL org.opencontainers.image.description="389 Directory Server. The enterprise-class Open Source LDAP server for Linux."
 LABEL version=${DS_VERSION}
 
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then ARCHITECTURE=x86_64; elif [ "$TARGETPLATFORM" = "linux/arm/v7" ]; then ARCHITECTURE=arm; elif [ "$TARGETPLATFORM" = "linux/arm64" ]; then ARCHITECTURE=aarch64; else ARCHITECTURE=x86_64; fi && \
