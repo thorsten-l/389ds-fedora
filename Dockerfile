@@ -20,7 +20,7 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then ARCHITECTURE=x86_64; elif [ "
   \
   curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/noarch/python3-lib389-${DS_VERSION}-1.fc${OS_VERSION}.noarch.rpm -v -o python3-lib389.rpm && \
   curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/${ARCHITECTURE}/389-ds-base-${DS_VERSION}-1.fc${OS_VERSION}.${ARCHITECTURE}.rpm -v -o 389-ds-base.rpm && \
-	curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/${ARCHITECTURE}/389-ds-base-libs-${DS_VERSION}-1.fc${OS_VERSION}.${ARCHITECTURE}.rpm -v -o 389-ds-base-libs.rpm && \
+  curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/${ARCHITECTURE}/389-ds-base-libs-${DS_VERSION}-1.fc${OS_VERSION}.${ARCHITECTURE}.rpm -v -o 389-ds-base-libs.rpm && \
   curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/${ARCHITECTURE}/389-ds-base-snmp-${DS_VERSION}-1.fc${OS_VERSION}.${ARCHITECTURE}.rpm -v -o 389-ds-base-snmp.rpm && \
   \
   dnf install -y 389-ds-base-libs.rpm \
