@@ -15,27 +15,27 @@ LABEL org.opencontainers.image.description="389 Directory Server. The enterprise
 LABEL version=${DS_VERSION}
 
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then ARCHITECTURE=x86_64; elif [ "$TARGETPLATFORM" = "linux/arm/v7" ]; then ARCHITECTURE=armv7hl; elif [ "$TARGETPLATFORM" = "linux/arm64" ]; then ARCHITECTURE=aarch64; else ARCHITECTURE=x86_64; fi && \
-    \
-	dnf upgrade -y && \
-	\
-    curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/noarch/python3-lib389-${DS_VERSION}-1.fc${OS_VERSION}.noarch.rpm -v -o python3-lib389.rpm && \
-	curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/${ARCHITECTURE}/389-ds-base-${DS_VERSION}-1.fc${OS_VERSION}.${ARCHITECTURE}.rpm -v -o 389-ds-base.rpm && \
+  \
+  dnf upgrade -y && \
+  \
+  curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/noarch/python3-lib389-${DS_VERSION}-1.fc${OS_VERSION}.noarch.rpm -v -o python3-lib389.rpm && \
+  curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/${ARCHITECTURE}/389-ds-base-${DS_VERSION}-1.fc${OS_VERSION}.${ARCHITECTURE}.rpm -v -o 389-ds-base.rpm && \
 	curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/${ARCHITECTURE}/389-ds-base-libs-${DS_VERSION}-1.fc${OS_VERSION}.${ARCHITECTURE}.rpm -v -o 389-ds-base-libs.rpm && \
-	curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/${ARCHITECTURE}/389-ds-base-snmp-${DS_VERSION}-1.fc${OS_VERSION}.${ARCHITECTURE}.rpm -v -o 389-ds-base-snmp.rpm && \
-    \
-    dnf install -y 389-ds-base-libs.rpm \
-    python3-lib389.rpm \
-    389-ds-base.rpm \
-    389-ds-base-snmp.rpm && \
-	\
-	dnf clean all && rm -fr *.rpm /var/cache/dnf /var/lib/locale/locale* && \
-    mkdir -p /data/config && \
-	mkdir -p /data/ssca && \
-	ln -s /data/config /etc/dirsrv/slapd-localhost && \
-	ln -s /data/ssca /etc/dirsrv/ssca
+  curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/${ARCHITECTURE}/389-ds-base-snmp-${DS_VERSION}-1.fc${OS_VERSION}.${ARCHITECTURE}.rpm -v -o 389-ds-base-snmp.rpm && \
+  \
+  dnf install -y 389-ds-base-libs.rpm \
+  python3-lib389.rpm \
+  389-ds-base.rpm \
+  389-ds-base-snmp.rpm && \
+  \
+  dnf clean all && rm -fr *.rpm /var/cache/dnf /var/lib/locale/locale* && \
+  mkdir -p /data/config && \
+  mkdir -p /data/ssca && \
+  ln -s /data/config /etc/dirsrv/slapd-localhost && \
+  ln -s /data/ssca /etc/dirsrv/ssca
 
 HEALTHCHECK --start-period=5m --timeout=5s --interval=5s --retries=2 \
-  CMD /usr/libexec/dirsrv/dscontainer -H
+CMD /usr/libexec/dirsrv/dscontainer -H
 
 WORKDIR /data
 VOLUME /data
