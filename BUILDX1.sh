@@ -16,8 +16,7 @@ done
 
 BUILDING_TAGS=$(echo $TAGS | tr ' ' "\n")
 
-docker buildx build --progress plain --no-cache \
+docker buildx build --no-cache \
   --build-arg OS_VERSION="$OS_VERSION" \
   --build-arg DS_VERSION="$DS_VERSION" \
-  --push \
-  --platform linux/arm64,linux/amd64 $BUILDING_TAGS .
+  --platform linux/arm64,linux/arm/v7,linux/amd64 $BUILDING_TAGS .
