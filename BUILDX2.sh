@@ -11,6 +11,7 @@ TAGS=""
 
 while (( $# )); do
   TAGS="$TAGS --tag ghcr.io/thorsten-l/389ds-fedora:$1"
+  TAGS="$TAGS --tag tludewig/389ds-fedora:$1"
   shift
 done
 
