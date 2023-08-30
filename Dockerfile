@@ -18,7 +18,9 @@ COPY dnf.conf /tmp/dnf.conf
 
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then ARCHITECTURE=x86_64; elif [ "$TARGETPLATFORM" = "linux/arm/v7" ]; then ARCHITECTURE=armv7hl; elif [ "$TARGETPLATFORM" = "linux/arm64" ]; then ARCHITECTURE=aarch64; else ARCHITECTURE=x86_64; fi && \
   \
-  if [ "$OS_VERSION" = "39" ]; then cp /tmp/dnf.conf /etc/dnf/dnf.conf; fi && \
+  DNF=dnf && \
+  \
+  if [ "$OS_VERSION" = "39" ]; then cp /tmp/dnf.conf /etc/dnf/dnf.conf; DNF=dnf5; fi && \
   \
   dnf upgrade -y && \
   \
@@ -27,12 +29,12 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then ARCHITECTURE=x86_64; elif [ "
   curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/${ARCHITECTURE}/389-ds-base-libs-${DS_VERSION}-1.fc${OS_VERSION}.${ARCHITECTURE}.rpm -v -o 389-ds-base-libs.rpm && \
   curl https://kojipkgs.fedoraproject.org/packages/389-ds-base/${DS_VERSION}/1.fc${OS_VERSION}/${ARCHITECTURE}/389-ds-base-snmp-${DS_VERSION}-1.fc${OS_VERSION}.${ARCHITECTURE}.rpm -v -o 389-ds-base-snmp.rpm && \
   \
-  dnf install -y 389-ds-base-libs.rpm \
+  $DNF install -y 389-ds-base-libs.rpm \
   python3-lib389.rpm \
   389-ds-base.rpm \
   389-ds-base-snmp.rpm && \
   \
-  dnf clean all && rm -fr *.rpm /var/cache/dnf /var/lib/locale/locale* && \
+  $DNF clean all && rm -fr *.rpm /var/cache/dnf /var/lib/locale/locale* && \
   mkdir -p /data/config && \
   mkdir -p /data/ssca && \
   ln -s /data/config /etc/dirsrv/slapd-localhost && \
