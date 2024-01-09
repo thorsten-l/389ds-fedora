@@ -20,7 +20,7 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then ARCHITECTURE=x86_64; elif [ "
   \
   DNF=dnf && \
   \
-  if [ "$OS_VERSION" = "39" ]; then cp /tmp/dnf.conf /etc/dnf/dnf.conf; DNF=dnf5; fi && \
+  if [ "$OS_VERSION" = "39" ]; then cp /tmp/dnf.conf /etc/dnf/dnf.conf; DNF=dnf; fi && \
   \
   dnf upgrade -y && \
   \
