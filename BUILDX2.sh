@@ -17,6 +17,8 @@ done
 
 BUILDING_TAGS=$(echo $TAGS | tr ' ' "\n")
 
+./private/LOGIN.sh
+
 docker buildx build --progress plain --no-cache \
   --build-arg OS_VERSION="$OS_VERSION" \
   --build-arg DS_VERSION="$DS_VERSION" \
